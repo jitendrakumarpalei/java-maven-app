@@ -17,7 +17,7 @@ pipeline {
         stage('test') {
             when {
                 expression {
-                    parms. executeTests
+                    parms.executeTests
                 }
             }
             steps {
@@ -32,7 +32,7 @@ pipeline {
             steps {
                 script {
                     echo "deploy the application"
-                    echo "deploying version ${VERSION}"
+                    echo "deploying version ${parms.VERSION}"
                     
                 }
             }    
