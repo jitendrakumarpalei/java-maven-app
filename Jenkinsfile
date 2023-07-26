@@ -15,9 +15,15 @@ pipeline {
             }
         }
         stage('test') {
+            when {
+                expression {
+                    parms. executeTests
+                }
+            }
             steps {
                 script {
                     echo "testing the application"
+
  
                 }
             }
