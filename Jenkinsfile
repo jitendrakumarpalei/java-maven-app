@@ -10,9 +10,6 @@ pipeline {
     tools {
         maven 'maven'
     }
-    environment {
-        IMAGE_NAME = 'jitendrapalei/java-maven-app:3.0'
-    }
     stages {
         stage('init') {
             steps {
@@ -31,9 +28,9 @@ pipeline {
         stage('build push image') {
             steps {
                 script {
-                    buildImage(env.IMAGE_NAME)
+                    buildImage('jitendrapalei/java-maven-app:3.0')
                     dockerLogin()
-                    dockerPush(env.IMAGE_NAME)
+                    dockerPush('jitendrapalei/java-maven-app:3.0')
                 }
             }
         }
