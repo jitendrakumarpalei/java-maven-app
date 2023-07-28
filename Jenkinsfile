@@ -11,7 +11,7 @@ pipeline {
         maven 'maven'
     }
     environment {
-        IMAGE_NAME = 'jitendrapalei/java-maven-app:2.0'
+        IMAGE_NAME = 'jitendrapalei/java-maven-app:3.0'
     }
     stages {
         stage('init') {
