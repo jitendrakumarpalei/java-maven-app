@@ -25,10 +25,12 @@ pipeline {
                 }
             }
         }
-        stage('build image') {
+        stage('build push image') {
             steps {
                 script {
                     buildImage()
+                    dockerLogin()
+                    dockerPush()
                 }
             }
         }
