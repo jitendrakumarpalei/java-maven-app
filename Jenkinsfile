@@ -59,7 +59,7 @@ pipeline {
                         sh "git remote set-url origin https://${USER}:${PASS}@github.com/jitendrakumarpalei/java-maven-app.git"
                         sh 'git add .'
                         sh 'git commit -m "ci: version bump"'
-                        sh 'git push origin HEAD: feature/payment'
+                        sh 'git push origin HEAD:feature/payment'
                     }
                 }
             }
