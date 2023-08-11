@@ -30,7 +30,7 @@ pipeline {
             steps {
                 script {
                     echo "building the docker image.."
-                    withCredentials([usernamePassword(credentialsId: 'docker-hub-repo', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                    withCredentials([usernamePassword(credentialsId: 'docker-hub-repo', passwordVariable: 'PASS', usernameVariable: 'USER')]) {        
                         sh "docker build -t jitendrapalei/java-maven-app:${IMAGE_NAME} ."
                         sh "echo $PASS | docker login -u $USER --password-stdin"
                         sh "docker push jitendrapalei/java-maven-app:${IMAGE_NAME}"
@@ -44,6 +44,42 @@ pipeline {
                     echo "deploying the docker image to EC2.."
                 }
             }
+        } 
+        stage('commit version update') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'git-hub-repo', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                        sh 'git config --global user.email "jenkins@example.com"'
+                        sh 'git config --global user.name "jenkins"'
+
+                        sh 'git status'
+                        sh 'git branch'
+                        sh 'git config --list'
+
+                        sh "git remote set-url origin https://${USER}:${PASS}@github.com/jitendrakumarpalei/java-maven-app.git"
+                        sh 'git add .'
+                        sh 'git commit -m "ci: version bump"'
+                        sh 'git push origin HEAD: feature/payment'
+                    }
+                }
+            }
         }
-    }
-}
+    }   
+}           
+    
+    
+        
+    
+
+
+    
+
+    
+
+    
+     
+
+    
+                    
+    
+    
