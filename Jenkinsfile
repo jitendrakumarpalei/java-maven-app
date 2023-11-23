@@ -1,37 +1,23 @@
 pipeline {
-
     agent any
-
+    tools {
+        maven 'maven-3.9.5'
+    }
+    
     stages {
-        stage('test') {
+        stage('clone') {
             steps {
-                script {
-                    echo "testing the application.."
-                    echo "Exucuting the pipeline for branch $BRANCH_NAME"
-                }
+                git 'https://github.com/jitendrakumarpalei/java-maven-app.git'
             }
         }
         stage('build') {
-            when {
-                expression {
-                    BRANCH_NAME == 'master'
-                }
-            }
             steps {
-                script {
-                    echo "build the application.."
-                }
+                sh "mvn clean install"
             }
-        }
-        stage('deploy') {
-            when {
-                expression {
-                    BRANCH_NAME == 'master'
-                }
-            }
-            steps {
-                script {
-                    echo "deploying the application.."
+            post {
+                success {
+                    archiveArtifacts 'target/*.jar'
+
                 }
             }
         }
